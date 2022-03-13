@@ -1,31 +1,45 @@
 <?php
 namespace App\Controller;
 
+use App\Utils\DataCheck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Com\Tecnick\Barcode\Barcode;
+use Exception;
 
 #[Route("/api")]
 
 class ApiController extends AbstractController
 {
 
-    #[Route('/ean8', name: 'EAN-8', methods:"GET|POST")]
-    public function index()
+    #[Route('/ean8', name: 'EAN8', methods:"GET|POST")]
+    public function index(Request $request,DataCheck $dataCheck):Response
     {
+        $response = new Response;
+
+        $value = $request->get('value');
+        $typeOfBarcode = $request->get('type');
+
+        if(!$dataCheck->checkIfInputIsNotEmpty($value,$typeOfBarcode)){
+            return  $response->setContent('Both values cannot be empty');
+        }
         $barcode = new Barcode();
-        $bobj = $barcode->getBarcodeObj(
-            'C128',                     // barcode type and additional comma-separated parameters
-            'Bonus',          // data string to encode
-            1200,                             // bar width (use absolute or negative value as multiplication factor)
-            400,                             // bar height (use absolute or negative value as multiplication factor)
-            'black',                        // foreground color
-            array(-2, -2, -2, -2)           // padding (use absolute or negative values as multiplication factors)
-            )->setBackgroundColor('white');
-            $file_png = __DIR__ . '/Pictures/barcode.png';
-            file_put_contents($file_png, $bobj->getPngData());
+        try{
+            $bobj = $barcode->getBarcodeObj(
+                $typeOfBarcode,
+                $value,
+                1200,
+                400,
+                'black',                       
+                )->setBackgroundColor('white');
+                $file_webp = __DIR__ . '../Utils/Pictures/barcode.webp';
+                file_put_contents($file_webp, $bobj->getPngData());
+        }catch(Exception $e){
+            return  $response->setContent($e->getMessage());
+        }
+            return  $response->setContent('Barcode generated');
 
     }
 }
