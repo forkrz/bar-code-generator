@@ -3,14 +3,10 @@
 namespace App\Utils;
 
 use Com\Tecnick\Barcode\Barcode;
-use Exception;
-use Symfony\Component\HttpFoundation\Response;
-
 class Barcodes
 {
     public function createBarcode(string $value, string $typeOfBarcode)
     {
-        $response = new Response;
         $barcode = new Barcode;
         $barcodeObj = $barcode->getBarcodeObj(
             $typeOfBarcode,

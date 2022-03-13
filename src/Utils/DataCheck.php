@@ -16,10 +16,16 @@ class DataCheck{
         }
     }
 
+    private function checkIfCodeIsNotSupported($type){
+        $codes = array("EAN2","IMBPRE","PHARMA","PHARMA2T","RAW","RAW2","QRCODE");
+        if(in_array($type,$codes)){
+            return true;
+        };
+    }
     private function doesStringContainsLetters($value, $type){
-        $codes = ["EAN8","EAN13","UPCE","IMB"];
+        $codes = array("EAN8","EAN13","UPCE","IMB");
 
-        if(in_array($value,$codes)){        
+        if(in_array($type,$codes)){        
             if(!ctype_digit($value)){
                 return true;
             };
@@ -30,6 +36,10 @@ class DataCheck{
         if($this->checkIfInputIsEmpty($value, $type)){
             $this->response->setContent('Both values cannot be empty');
         };
+
+        if($this->checkIfCodeIsNotSupported($type)){
+            $this->response->setContent('Unsupported barcode type');
+        }
 
         if($this->doesStringContainsLetters($value, $type)){
             return $this->response->setContent('This barcode can be generated only with numbers');
