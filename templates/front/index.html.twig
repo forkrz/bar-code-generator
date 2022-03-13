@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+	<div class="d-inline-flex justify-content-center align-items-center barcode-input-container flex-grow ">
+		<form>
+			<div class="input-group mb-3">
+				<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item" href="#">Action</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="#">Another action</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</li>
+					<li><hr class="dropdown-divider"></li>
+					<li>
+						<a class="dropdown-item" href="#">Separated link</a>
+					</li>
+				</ul>
+				<input type="text" class="form-control" aria-label="Text input with dropdown button">
+			</div>
+            <button type="button" class="btn btn-success">Success</button>
+		</form>
+	</div>
+{% endblock %}
