@@ -1,28 +1,17 @@
 {% extends "base.html.twig" %}
 
 {% block main %}
-	<div class="d-inline-flex justify-content-center align-items-center barcode-input-container flex-grow ">
-		<form>
+	
+	<div class="d-flex justify-content-center align-items-center barcode-input-container">
+		<form class="input-form d-flex">
 			<div class="input-group mb-3">
-				<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-				<ul class="dropdown-menu">
-					<li>
-						<a class="dropdown-item" href="#">Action</a>
-					</li>
-					<li>
-						<a class="dropdown-item" href="#">Another action</a>
-					</li>
-					<li>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</li>
-					<li><hr class="dropdown-divider"></li>
-					<li>
-						<a class="dropdown-item" href="#">Separated link</a>
-					</li>
-				</ul>
-				<input type="text" class="form-control" aria-label="Text input with dropdown button">
+				<select class="form-select" aria-label="Default select example">
+					<option value="EAN-8">EAN-8</option>
+					<option value="EAN-13">EAN-13</option>
+				</select>
+				<input type="number" class="form-control" aria-label="Text input with dropdown button" style="width:70%">
 			</div>
-            <button type="button" class="btn btn-success">Success</button>
+			<button type="button" class="btn btn-success form-btn-generate">Generuj kod kreskowy</button>
 		</form>
 	</div>
 {% endblock %}
