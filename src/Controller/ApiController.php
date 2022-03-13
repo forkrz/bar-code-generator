@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Utils\Barcodes;
 use App\Utils\DataCheck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,18 +12,14 @@ class ApiController extends AbstractController
 {
 
     #[Route('/ean8', name: 'EAN8', methods:"GET|POST")]
-    public function index(Request $request,DataCheck $dataCheck,Barcodes $barcodes):Response
+    public function index(Request $request,DataCheck $dataCheck):Response
     {
-        $response = new Response;
 
         $value = $request->get('value');
         $typeOfBarcode = $request->get('type');
 
-        if(!$dataCheck->checkIfInputIsNotEmpty($value,$typeOfBarcode)){
-            return  $response->setContent('Both values cannot be empty');
-        }else{
-            return $barcodes->createBarcode($value,$typeOfBarcode);
-        }
+        return $dataCheck->totalCheck($value,$typeOfBarcode);
+       
         
         
     }
