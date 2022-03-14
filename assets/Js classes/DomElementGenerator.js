@@ -12,8 +12,8 @@ export class DomElementGenerator{
         element.remove();
     }
 
-    addParagraph = (msg,textColor) =>{
-        const paragraph = this.createElement('p',msg,[textColor],container);
+    addParagraph = (msg,textColorClass) =>{
+        const paragraph = this.createElement('p',msg,[textColorClass],container);
         const cssClassesArrContainer = ['d-flex', 'justify-content-center', 'reqInfo']
         const container = this.createElement('div',"", cssClassesArrContainer ,paragraph);
         container.id = "reqInfo";

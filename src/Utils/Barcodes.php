@@ -3,10 +3,12 @@
 namespace App\Utils;
 
 use Com\Tecnick\Barcode\Barcode;
+
 class Barcodes
 {
     public function createBarcode(string $value, string $typeOfBarcode)
     {
+
         $barcode = new Barcode;
         $barcodeObj = $barcode->getBarcodeObj(
             $typeOfBarcode,

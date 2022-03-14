@@ -1,18 +1,18 @@
 export class Validator{
-    checkIfInputEmpty = (type,value) =>{
+    inputEmpty = (type,value) =>{
         if(!type || !value){
             return true;
         }
     }
 
-    doesCodeCanBeGeneratedOnlyWithNumChars = (type) =>{
-        const types = ["EAN5","EAN8","EAN13","UPCE","IMB"];
+    checkIfTypeRequiresOnlyNumbers = (type) =>{
+        const types = ["EAN5","EAN8","EAN13","UPCE","IMB","MSI","S25","I25","C128A","C128C","POSTNET","PLANET","IMB","CODABAR","CODE11"];
         return types.includes(type)
     }
 
-    doesStringContainsLetters = (value, type) =>{
-        if(this.doesCodeCanBeGeneratedOnlyWithNumChars(type)){
-            return /[a-zA-Z]/g.test(value);
+    checkIfStringContainsLetters = (value, type) =>{
+        if(this.checkIfTypeRequiresOnlyNumbers(type)){
+            return /[a-zA-Z]/.test(value);
         }
                 
     }

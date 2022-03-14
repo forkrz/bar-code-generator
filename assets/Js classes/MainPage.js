@@ -1,11 +1,12 @@
 import { Api } from "./Api.js";
 import { DomElementGenerator } from "./DomElementGenerator.js";
 import { Validator } from "./Validator.js";
+
 export class MainPage {
   constructor() {
     this.api = new Api();
-    this.Validator = new Validator();
-    this.DomElementGenerator = new DomElementGenerator();
+    this.validator = new Validator();
+    this.domElementGenerator = new DomElementGenerator();
   }
   generateBtnAddEventListener = () => {
     const btn = document.getElementById("btnBarcodeGenerator");
@@ -14,20 +15,27 @@ export class MainPage {
 
       let type = document.getElementById("codeSelect").value;
       let value = document.getElementById("valueInput").value;
-      document.getElementById('img-container').classList.add('hide');
+      document.getElementById("img-container").classList.add("hide");
+
       if (document.getElementById("reqInfo")) {
-        this.DomElementGenerator.removeElement(
+        this.domElementGenerator.removeElement(
           document.getElementById("reqInfo")
         );
       }
 
-      if (this.Validator.checkIfInputEmpty(type, value)) {
-        this.DomElementGenerator.addParagraph("Both values cannot be empty", "text-danger");
+      if (this.validator.inputEmpty(type, value)) {
+        this.domElementGenerator.addParagraph(
+          "Both values cannot be empty",
+          "text-danger"
+        );
         return;
       }
-
-      if (this.Validator.doesStringContainsLetters(value, type)) {
-        this.DomElementGenerator.addParagraph("This barcode only can be generated  with numbers", "text-danger");
+      
+      if (this.validator.checkIfStringContainsLetters(value, type)) {
+        this.domElementGenerator.addParagraph(
+          "This barcode only can be generated  with numbers",
+          "text-danger"
+        );
         return;
       }
 
@@ -35,28 +43,37 @@ export class MainPage {
       let msg = await res.json();
 
       if (res.status != 200) {
-        this.DomElementGenerator.addParagraph(msg["msg"], "text-danger");
+        this.domElementGenerator.addParagraph(msg["msg"], "text-danger");
         return;
+      } else {
+        this.updateBarcodeImg();
       }
-      document.getElementById('img-container').classList.remove('hide');
+      document.getElementById("img-container").classList.remove("hide");
     });
   };
 
-  listAddEventListeer = () => {
+  displayValidsecription = () => {
     const type = document.getElementById("codeSelect");
     type.addEventListener("change", () => {
       document.getElementById("img-container").classList.add("hide");
       if (document.getElementById("reqInfo")) {
-        this.DomElementGenerator.removeElement(
+        this.domElementGenerator.removeElement(
           document.getElementById("reqInfo")
         );
       }
-      if (this.Validator.doesCodeCanBeGeneratedOnlyWithNumChars(type.value)) {
-        this.DomElementGenerator.addParagraph(
+      if (this.validator.checkIfTypeRequiresOnlyNumbers(type.value)) {
+        this.domElementGenerator.addParagraph(
           "This barcode can only be generated with numbers",
           "text-white"
         );
       }
     });
+  };
+
+  updateBarcodeImg = () => {
+    const img = document.getElementById("img");
+    let timeStamp = new Date().getTime();
+    let newSrc = img.src + "?=" + timeStamp;
+    img.src = newSrc;
   };
 }
