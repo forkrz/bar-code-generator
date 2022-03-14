@@ -16,12 +16,16 @@ body {
 }
 
 .barcode-input-container{
-    min-height: 90%;
+    min-height: 60%;
     width: 100%;
 }
 
+.barcode-input-container > div {
+    flex: 50%;
+}
+
 .input-form{
-    width: 45%;
+    width: 55%;
 }
 
 .form-btn-generate{

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiController extends AbstractController
 {
 
-    #[Route('/ean8', name: 'EAN8', methods:"GET|POST")]
+    #[Route('/barcodeGenerator', name: 'barcodeGenerator', methods:"POST")]
     public function index(Request $request,DataCheck $dataCheck):Response
     {
 

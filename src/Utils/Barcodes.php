@@ -15,7 +15,7 @@ class Barcodes
             400,
             'black',
         )->setBackgroundColor('white');
-        $file_webp = __DIR__ . '/Pictures/barcode.webp';
+        $file_webp = $_SERVER['DOCUMENT_ROOT'] . '../../public/Pictures/barcode.webp';
         file_put_contents($file_webp, $barcodeObj->getPngData());
     }
 }

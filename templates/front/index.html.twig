@@ -1,14 +1,23 @@
 {% extends "base.html.twig" %}
 
+{% block javascripts %}
+	{{ parent() }}
+	{{encore_entry_script_tags('mainPage') }}
+
+
+{% endblock %}
+
 {% block main %}
-	
-	<div class="d-flex justify-content-center align-items-center barcode-input-container">
-		<form class="input-form d-flex">
+
+	<div class="d-flex justify-content-center align-items-center barcode-input-container flex-wrap">
+		<form class="input-form d-flex barcode-form">
 			<div class="input-group mb-3">
-				<select class="form-select" aria-label="Default select example">
-					<option value="C39">CODE 39 </option>
+				<select class="form-select" aria-label="Default select example" id="codeSelect">
+					<option value="C39">CODE 39
+					</option>
 					<option value="C39E">CODE 39 EXTENDED</option>
-					<option value="C93">CODE 93 </option>
+					<option value="C93">CODE 93
+					</option>
 					<option value="S25">Standard 2 of 5</option>
 					<option value="I25">Interleaved 2 of 5</option>
 					<option value="C128">CODE 128</option>
@@ -25,15 +34,17 @@
 					<option value="PLANET">PLANET</option>
 					<option value="RMS4CC">RMS4CC</option>
 					<option value="KIX">KIX (Klant index - Customer index)</option>
-					<option value="IMB">IMB - Intelligent Mail Barcode </option>
+					<option value="IMB">IMB - Intelligent Mail Barcode
+					</option>
 					<option value="CODABAR">CODABAR</option>
 					<option value="CODE11">CODE11</option>
 					<option value="DATAMATRIX">DATAMATRIX</option>
 					<option value="PDF417">PDF417 (ISO/IEC 15438:2006)</option>
 				</select>
-				<input type="number" class="form-control" aria-label="Text input with dropdown button" style="width:70%">
+				<input type="text" class="form-control" aria-label="Text input with dropdown button" id="valueInput">
 			</div>
-			<button type="button" class="btn btn-success form-btn-generate">Generate barcode</button>
+			<button type="button" class="btn btn-success form-btn-generate" id="btnBarcodeGenerator">Generate barcode</button>
 		</form>
+		<img src="../Pictures/barcode.webp" alt="Italian Trulli">
 	</div>
-{% endblock %}
+</div>{% endblock %}
