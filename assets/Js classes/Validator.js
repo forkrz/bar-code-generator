@@ -6,7 +6,7 @@ export class Validator{
     }
 
     doesCodeCanBeGeneratedOnlyWithNumChars = (type) =>{
-        const types = ["EAN8","EAN13","UPCE","IMB"];
+        const types = ["EAN5","EAN8","EAN13","UPCE","IMB"];
         return types.includes(type)
     }
 

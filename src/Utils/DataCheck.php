@@ -11,7 +11,7 @@ class DataCheck{
         $this->barcodes = new Barcodes;
     }
     private function checkIfInputIsEmpty($value,$type){
-        if(empty($value) or empty($type)){
+        if($value == null or $type == null){
             return true;
         }
     }
@@ -23,7 +23,7 @@ class DataCheck{
         };
     }
     private function doesStringContainsLetters($value, $type){
-        $codes = array("EAN8","EAN13","UPCE","IMB");
+        $codes = array("EAN5","EAN8","EAN13","UPCE","IMB");
 
         if(in_array($type,$codes)){        
             if(!ctype_digit($value)){
@@ -33,29 +33,31 @@ class DataCheck{
     }
 
     public function totalCheck($value, $type){
+
         if($this->checkIfInputIsEmpty($value, $type)){
             $this->response->setStatusCode(400, 'input is empty');
-            $this->response->setContent('Both values cannot be empty');
+            return $this->response->setContent(json_encode(['msg' => 'Both values cannot be empty']));
         };
 
         if($this->checkIfCodeIsNotSupported($type)){
             $this->response->setStatusCode(400, 'code is not supported');
-            $this->response->setContent('Unsupported barcode type');
+            return $this->response->setContent(json_encode(['msg' => 'Unsupported barcode type']));
         }
 
         if($this->doesStringContainsLetters($value, $type)){
             $this->response->setStatusCode(400, 'wrong characters');
-            return $this->response->setContent('This barcode can be generated only with numbers');
+            return $this->response->setContent(json_encode(['msg'=> 'This barcode only can be generated  with numbers']));
         };
 
         try{
             $this->barcodes->createBarcode($value, $type);
+            return $this->response->setContent(json_encode(['msg'=>"Barcode generated"]));
         }catch(Exception $e){
             $this->response->setStatusCode(400, 'error');
-            return  $this->response->setContent($e->getMessage());
+            return  $this->response->setContent(json_encode(['msg'=>$e->getMessage()]));
         }
         
-        return $this->response->setContent('Barcode generated');
+        
     }
 }
 

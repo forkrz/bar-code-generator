@@ -1,20 +1,24 @@
 export class DomElementGenerator{
     
-    createElement = (htmlTag,input,cssClass,parent) =>{
+    createElement = (htmlTag,input,cssClassesArr,childElement = null) =>{
         const element = document.createElement(htmlTag);
         element.innerHTML = `${input}`;
-        element.classList.add(cssClass);
-        parent.appendChild(element);
+        element.classList.add(...cssClassesArr);
+        childElement && element.appendChild(childElement)
+        return element;
     }
 
     removeElement = (element) =>{
         element.remove();
     }
 
-    createInfoElement = (msg) =>{
-        const container = this.createElement('div',"","d-flex,justify-content-center,reqInfo",document.getElementById('barcodeInputContainer'));
+    addParagraph = (msg,textColor) =>{
+        const paragraph = this.createElement('p',msg,[textColor],container);
+        const cssClassesArrContainer = ['d-flex', 'justify-content-center', 'reqInfo']
+        const container = this.createElement('div',"", cssClassesArrContainer ,paragraph);
         container.id = "reqInfo";
-        this.createElement('p',msg,"text-white",container);
+        document.getElementById('barcodeInputContainer').appendChild(container);
     }
+    
 
 }
