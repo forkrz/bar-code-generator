@@ -1,4 +1,5 @@
-import {Api} from './Js classes/Api.js';
+import {MainPage} from './Js classes/MainPage.js';
 
-const api = new Api;
+const mainPage = new MainPage;
 
+mainPage.generateBtnAddEventListener();

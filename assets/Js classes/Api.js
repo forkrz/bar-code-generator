@@ -22,6 +22,7 @@ export class Api{
               body: this.generatePostData(codeType,value)
           });
         const res = query;
+        console.log(res);
         return res;
         }
 
