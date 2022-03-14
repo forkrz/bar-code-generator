@@ -5,10 +5,15 @@ export class Validator{
         }
     }
 
-    doesStringContainsLetters = (value, type) =>{
+    doesCodeCanBeGeneratedOnlyWithNumChars = (type) =>{
         const types = ["EAN8","EAN13","UPCE","IMB"];
-        if(types.includes(type)){
-                return /^\d+$/.test(value);
+        return types.includes(type)
+    }
+
+    doesStringContainsLetters = (value, type) =>{
+        if(this.doesCodeCanBeGeneratedOnlyWithNumChars(type)){
+            return /[a-zA-Z]/g.test(value);
         }
+                
     }
 }

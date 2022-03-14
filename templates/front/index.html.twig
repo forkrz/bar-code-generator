@@ -9,7 +9,7 @@
 
 {% block main %}
 
-	<div class="d-flex justify-content-center align-items-center barcode-input-container flex-wrap">
+	<div class="d-flex justify-content-center align-items-center barcode-input-container flex-wrap" id="barcodeInputContainer">
 		<form class="input-form d-flex barcode-form">
 			<div class="input-group mb-3">
 				<select class="form-select" aria-label="Default select example" id="codeSelect">
@@ -43,9 +43,13 @@
 				</select>
 				<input type="text" class="form-control" aria-label="Text input with dropdown button" id="valueInput">
 			</div>
-			<button type="button" class="btn btn-success form-btn-generate" id="btnBarcodeGenerator">Generate barcode</button>		
+			<button type="button" class="btn btn-success form-btn-generate" id="btnBarcodeGenerator">Generate barcode</button>
 		</form>
-		<p class="text-white" style="width:51%"> test </p>
+		{# <div class="d-flex justify-content-center reqInfo" id="reqInfo">
+			<p class="text-white">
+				test
+			</p>
+		</div> #}
 		{# <img src="../Pictures/barcode.webp" alt="Italian Trulli"> #}
 	</div>
 </div>{% endblock %}
