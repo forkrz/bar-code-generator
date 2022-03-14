@@ -1,6 +1,6 @@
 export class Api {
   constructor() {
-    this.url = "http://barcode.loc/api/barcodeGenerator";
+    this.url = "https://gentle-depths-11438.herokuapp.com/api/barcodeGenerator";
   }
 
   generatePostData = (codeType, value) => {
